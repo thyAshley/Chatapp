@@ -2,7 +2,8 @@ import { Model } from 'sequelize';
 
 export interface UserAttribute {
   id?: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   gender: string;
   password: string;
@@ -10,5 +11,3 @@ export interface UserAttribute {
   createdAt?: Date;
   updatedAt?: Date;
 }
-
-export interface UserInstance extends Model<UserAttribute> {}

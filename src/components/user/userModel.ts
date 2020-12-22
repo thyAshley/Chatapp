@@ -1,30 +1,51 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../../db';
-import { UserInstance } from './userTypes';
+import { UserAttribute } from './userTypes';
 
-const User = sequelize.define<UserInstance>('User', {
-  name: {
-    type: DataTypes.STRING,
+class User extends Model<UserAttribute> {
+  private id?: string;
+  public firstName!: string;
+  public lastName!: string;
+  public email!: string;
+  public gender!: string;
+  public password!: string;
+  public avatar!: string;
+  public createdAt!: string;
+  public updatedAt!: string;
+}
+
+User.init(
+  {
+    firstName: {
+      type: DataTypes.STRING,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+    },
+    email: {
+      type: DataTypes.STRING,
+    },
+    gender: {
+      type: DataTypes.STRING,
+    },
+    password: {
+      type: DataTypes.STRING,
+    },
+    avatar: {
+      type: DataTypes.STRING,
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      defaultValue: Date.now(),
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+    },
   },
-  email: {
-    type: DataTypes.STRING,
+  {
+    sequelize,
+    tableName: 'User',
   },
-  gender: {
-    type: DataTypes.STRING,
-  },
-  password: {
-    type: DataTypes.STRING,
-  },
-  avatar: {
-    type: DataTypes.STRING,
-  },
-  createdAt: {
-    type: DataTypes.DATE,
-    defaultValue: Date.now(),
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-  },
-});
+);
 
 export default User;
