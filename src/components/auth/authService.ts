@@ -22,7 +22,7 @@ export const findUser = async (email: string) => {
 export const createUser = async (
   firstName: string,
   lastName: string,
-  password: string,
+  password: string | number,
   email: string,
   gender: string,
 ) => {
