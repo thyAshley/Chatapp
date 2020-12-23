@@ -1,9 +1,9 @@
 import { DataTypes, Model } from 'sequelize';
+import { DataType } from 'sequelize-typescript';
 import { sequelize } from '../../db';
 import { UserAttribute } from './userTypes';
-
 class User extends Model<UserAttribute> {
-  private id?: string;
+  public id?: string;
   public firstName!: string;
   public lastName!: string;
   public email!: string;
@@ -16,6 +16,11 @@ class User extends Model<UserAttribute> {
 
 User.init(
   {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     firstName: {
       type: DataTypes.STRING,
     },
@@ -44,7 +49,7 @@ User.init(
   },
   {
     sequelize,
-    tableName: 'User',
+    tableName: 'Users',
   },
 );
 
