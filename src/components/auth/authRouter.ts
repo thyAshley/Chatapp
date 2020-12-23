@@ -8,13 +8,13 @@ const userRouter = express.Router();
 
 userRouter.post(
   '/login',
-  LoginRules(),
+  LoginRules,
   InputValidationMiddleware,
   userController.login,
 );
 userRouter.post(
   '/register',
-  RegisterRules(),
+  RegisterRules,
   InputValidationMiddleware,
   userController.register,
 );
