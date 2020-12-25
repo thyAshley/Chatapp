@@ -1,18 +1,26 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { authService } from '../../services/api';
-
+import { login } from '../../redux/auth/authActions';
 import loginImage from '../../assets/images/login.svg';
 import './login.scss';
+import { RootState } from '../../redux/rootReducer';
 
 const Login: React.FC = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const isLoggedIn = useSelector<RootState>((state) => state.auth.isLoggedIn);
+
+  useEffect(() => {
+    if (isLoggedIn) history.push('/');
+  }, [isLoggedIn, history]);
 
   const submitHandler = async (e: React.FormEvent) => {
     e.preventDefault();
-    await authService.login(email, password);
+    dispatch(login(email, password));
   };
   return (
     <div id="auth-container">
