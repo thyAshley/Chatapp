@@ -14,6 +14,7 @@ export const login = async (
   res: Response,
   next: NextFunction,
 ) => {
+  console.log('here');
   const { email, password } = req.body;
   try {
     const user = await authService.findUser(email);

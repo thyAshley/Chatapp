@@ -18,6 +18,7 @@ export const RegisterRules = [
   body('gender').notEmpty().withMessage('Gender should not be empty'),
   body('email')
     .trim()
+    .toLowerCase()
     .notEmpty()
     .withMessage('Email should not be empty')
     .bail()
@@ -32,6 +33,7 @@ export const LoginRules = [
     .withMessage('Email should not be empty')
     .bail()
     .isEmail()
+    .toLowerCase()
     .withMessage('Please provide a valid email'),
   body('password').notEmpty().withMessage('Password should not be empty'),
 ];
