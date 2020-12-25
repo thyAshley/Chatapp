@@ -1,11 +1,12 @@
-export interface UserInstance {
-  id: string;
+export type UserInstance = {
+  id?: string;
   firstName: string;
   lastName: string;
   email: string;
   gender: string;
-  avatar: string;
-}
+  avatar?: string;
+  password?: string;
+} | null;
 
 export interface ErrorInstance {
   name: string;

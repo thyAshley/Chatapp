@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
+import './login.scss';
+
 import { login } from '../../redux/auth/authActions';
 import loginImage from '../../assets/images/login.svg';
-import './login.scss';
 import { RootState } from '../../redux/rootReducer';
 
 const Login: React.FC = () => {

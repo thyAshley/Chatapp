@@ -1,3 +1,4 @@
+import { UserInstance } from '../redux/types';
 import instance from './instance';
 
 export const authService = {
@@ -8,7 +9,7 @@ export const authService = {
     });
   },
 
-  register: (data: any) => {
+  register: (data: UserInstance) => {
     return instance.post('/api/v1/register', data);
   },
 

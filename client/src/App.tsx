@@ -7,6 +7,7 @@ import Chat from './screens/Chat';
 import Login from './screens/Login';
 import NotFound from './screens/NotFound';
 import Register from './screens/Register';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Switch>
           <Route path="/login" exact component={Login} />
           <Route path="/register" exact component={Register} />
-          <Route path="/" exact component={Chat} />
+          <ProtectedRoute path="/" component={Chat} />
           <Route render={NotFound} />
         </Switch>
       </div>

@@ -60,7 +60,18 @@ export const register = async (
       email,
       gender,
     );
-    res.send(newUser);
+    const token = await authService.generateToken(newUser.id!);
+    res.send({
+      user: {
+        id: newUser.id,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        email: newUser.email,
+        gender: newUser.gender,
+        avatar: newUser.avatar,
+      },
+      token,
+    });
   } catch (error) {
     console.log(error);
     next(new UncaughtException());
