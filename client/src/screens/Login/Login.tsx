@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+
+import { authService } from '../../services/api';
 
 import loginImage from '../../assets/images/login.svg';
 import './login.scss';
 
-const Login = () => {
+const Login: React.FC = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const submitHandler = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await authService.login(email, password);
+  };
   return (
     <div id="auth-container">
       <div id="auth-card">
@@ -16,13 +25,23 @@ const Login = () => {
           <div id="form-section">
             <h2>Welcome back</h2>
 
-            <form>
+            <form onSubmit={submitHandler}>
               <div className="input-field mb-1">
-                <input type="email" placeholder="Email" />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
 
               <div className="input-field mb-2">
-                <input type="password" placeholder="Password" />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </div>
 
               <button>LOGIN</button>

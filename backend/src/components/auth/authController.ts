@@ -14,7 +14,6 @@ export const login = async (
   res: Response,
   next: NextFunction,
 ) => {
-  console.log('here');
   const { email, password } = req.body;
   try {
     const user = await authService.findUser(email);
@@ -26,7 +25,18 @@ export const login = async (
       return next(new InvalidCredentialsException());
     }
     const token = await authService.generateToken(user.id!);
-    res.send(token);
+
+    res.send({
+      user: {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        gender: user.gender,
+        avatar: user.avatar,
+      },
+      token,
+    });
   } catch (error) {
     next(new UncaughtException());
   }
