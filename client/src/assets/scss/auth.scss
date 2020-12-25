@@ -1,0 +1,63 @@
+@import '../../assets/scss/variables';
+
+#auth-container {
+  background-color: $bg-main;
+  min-height: 100vh;
+
+  #auth-card {
+    display: flex;
+    justify-content: center;
+
+    #sections {
+      background-color: white;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: row;
+      margin-top: 2.5rem;
+      min-width: 500px;
+
+      #image-section {
+        background-color: $bg-light;
+        border-radius: 20px 0 0 20px;
+
+        img {
+          max-height: 300px;
+          min-width: 100%;
+        }
+      }
+
+      #form-section {
+        min-width: 300px;
+
+        h2 {
+          text-align: center;
+        }
+
+        form {
+          padding: 20px;
+
+          .input-field {
+            input,
+            select {
+              border-radius: 5px;
+              border-color: $bg-light;
+              box-sizing: border-box;
+              height: 40px;
+              width: 100%;
+            }
+          }
+          button {
+            background-color: $bg-main;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-weight: 700;
+            height: 40px;
+            padding: 5px;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
