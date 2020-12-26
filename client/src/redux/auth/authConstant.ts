@@ -5,6 +5,7 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 export const REGISTER_REQUEST = 'REGISTER';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAILURE = 'REGISTER_FAILURE';
+export const LOGOUT = 'LOGOUT';
 
 export interface AuthInstance {
   user: UserInstance | null;
@@ -14,6 +15,9 @@ export interface AuthInstance {
   loading: boolean;
 }
 
+interface LogoutAction {
+  type: typeof LOGOUT;
+}
 interface LoginAction {
   type: typeof LOGIN;
 }
@@ -50,4 +54,5 @@ export type authActionType =
   | RegisterRequestAction
   | RegisterSuccesssAction
   | RegisterFailureAction
-  | LoginFailAction;
+  | LoginFailAction
+  | LogoutAction;

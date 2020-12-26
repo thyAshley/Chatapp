@@ -7,6 +7,11 @@
   justify-content: space-between;
   padding: 0 10px;
 
+  .fa-icon {
+    color: white;
+    margin: 5px;
+  }
+
   h2 {
     align-self: center;
     color: white;
@@ -20,6 +25,44 @@
     justify-content: flex-end;
     position: relative;
     cursor: pointer;
+
+    img {
+      align-self: center;
+      border-radius: 20px;
+      color: white;
+      display: flex;
+      height: 30px;
+      margin: 10px;
+      width: 30px;
+    }
+    .slidein {
+      transition: 5s;
+      left: 0;
+    }
+    #profile-options {
+      align-items: flex-end;
+      background-color: white;
+      border: 1px solid #d9d9d9;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      right: 5px;
+      top: 50px;
+      width: 150px;
+      z-index: 10;
+
+      p {
+        box-sizing: border-box;
+        color: black;
+        margin: 0;
+        padding: 10px;
+        width: 100%;
+      }
+      P:hover {
+        background-color: #d9d9d9;
+      }
+    }
   }
 
   p {
