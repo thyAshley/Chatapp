@@ -31,3 +31,7 @@ export const register = (data: UserInstance) => async (dispatch: Dispatch) => {
     });
   }
 };
+
+export const logout = () => (dispatch: Dispatch) => {
+  dispatch({ type: authConstant.LOGOUT });
+};

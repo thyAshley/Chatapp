@@ -2,12 +2,22 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import defaultPortrait from '../../assets/images/default_portrait.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch } from 'react-redux';
 
 import './Navbar.scss';
+
 import { RootState } from '../../redux/rootReducer';
+import { logout } from '../../redux/auth/authActions';
+
 const Navbar = () => {
+  const dispatch = useDispatch();
   const [showProfileOptions, setShowProfileOptions] = useState(false);
   const user = useSelector((state: RootState) => state.auth.user);
+
+  const onLogoutHandler = () => {
+    console.log('here');
+    dispatch(logout());
+  };
 
   return (
     <div id="navbar" className="card-shadow">
@@ -23,7 +33,7 @@ const Navbar = () => {
         {showProfileOptions && (
           <div id="profile-options">
             <p>Update profile</p>
-            <p>Logout</p>
+            <p onClick={onLogoutHandler}>Logout</p>
           </div>
         )}
       </div>

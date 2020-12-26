@@ -6,6 +6,7 @@ import {
   REGISTER_REQUEST,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
+  LOGOUT,
 } from './authConstant';
 
 const initialState: AuthInstance = {
@@ -53,6 +54,13 @@ const authReducer = (state = initialState, action: authActionType) => {
         ...state,
         loading: false,
         error: action.payload,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        user: null,
+        token: '',
+        isLoggedIn: false,
       };
     default:
       return state;
