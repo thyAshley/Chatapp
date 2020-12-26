@@ -15,7 +15,6 @@ const Navbar = () => {
   const user = useSelector((state: RootState) => state.auth.user);
 
   const onLogoutHandler = () => {
-    console.log('here');
     dispatch(logout());
   };
 

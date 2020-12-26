@@ -2,16 +2,36 @@ import { UserInstance } from '../redux/types';
 import instance from './instance';
 
 export const authService = {
-  login: (email: string, password: string) => {
-    return instance.post('/api/v1/login', {
+  login: async (email: string, password: string) => {
+    const response = await instance.post('/api/v1/login', {
       email,
       password,
     });
+    saveUserToLocalStorage(response.data);
+    return response;
   },
 
-  register: (data: UserInstance) => {
-    return instance.post('/api/v1/register', data);
+  register: async (data: UserInstance) => {
+    const response = await instance.post('/api/v1/register', data);
+    saveUserToLocalStorage(response.data);
+    return response;
   },
 
-  logout: () => {},
+  logout: () => {
+    instance.defaults.headers['Authorization'] = '';
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+  },
+};
+
+const saveUserToLocalStorage = ({
+  user,
+  token,
+}: {
+  user: UserInstance;
+  token: string;
+}) => {
+  instance.defaults.headers['Authorization'] = `Bearer ${token}`;
+  localStorage.setItem('user', JSON.stringify(user));
+  localStorage.setItem('token', token);
 };

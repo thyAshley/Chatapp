@@ -22,7 +22,6 @@ export const register = (data: UserInstance) => async (dispatch: Dispatch) => {
   dispatch({ type: authConstant.REGISTER_REQUEST });
   try {
     const response = await authService.register(data);
-    console.log(response.data);
     dispatch({ type: authConstant.REGISTER_SUCCESS, payload: response?.data });
   } catch (error) {
     dispatch({
@@ -33,5 +32,6 @@ export const register = (data: UserInstance) => async (dispatch: Dispatch) => {
 };
 
 export const logout = () => (dispatch: Dispatch) => {
+  authService.logout();
   dispatch({ type: authConstant.LOGOUT });
 };

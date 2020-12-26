@@ -9,10 +9,12 @@ import {
   LOGOUT,
 } from './authConstant';
 
+const localUser = localStorage.getItem('user');
+const localToken = localStorage.getItem('token');
 const initialState: AuthInstance = {
-  user: null,
-  token: '',
-  isLoggedIn: false,
+  user: localUser ? JSON.parse(localUser) : null,
+  token: localToken ? localToken : '',
+  isLoggedIn: !!localUser,
   error: null,
   loading: false,
 };
