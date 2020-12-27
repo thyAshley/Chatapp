@@ -9,8 +9,11 @@ export const update = async (
   next: NextFunction,
 ) => {
   try {
-    console.log('here');
-    const result = await UserService.updateUser(res.locals.user.id, req.body);
+    const result = await UserService.updateUser(
+      res.locals.user.id,
+      req.body,
+      req.file,
+    );
     res.send(result);
   } catch (error) {
     console.log(error);

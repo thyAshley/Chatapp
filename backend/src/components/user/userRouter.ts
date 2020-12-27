@@ -11,16 +11,10 @@ const router = express.Router();
 router.post(
   '/update',
   authMiddleware,
-  fileUploadMiddleware.single('file'),
-  (req: Request, res: Response, next: NextFunction) => {
-    res.send('ok');
-  },
-  (err: Error, req: Request, res: Response, next: NextFunction) => {
-    console.log(err);
-  },
-  // updateRules,
-  // InputValidationMiddleware,
-  // userController.update,
+  fileUploadMiddleware.single('avatar'),
+  updateRules,
+  InputValidationMiddleware,
+  userController.update,
 );
 
 export default router;
