@@ -58,3 +58,12 @@ export class InputValidationError extends Error {
     this.message = message;
   }
 }
+export class InvalidFileType extends Error {
+  status: number;
+  constructor(message: any) {
+    super();
+    this.name = 'InvalidFileType';
+    this.status = statusCode.BAD_REQUEST;
+    this.message = message;
+  }
+}

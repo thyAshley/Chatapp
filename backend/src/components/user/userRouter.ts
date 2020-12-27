@@ -10,9 +10,9 @@ const router = express.Router();
 
 router.post(
   '/update',
+  authMiddleware,
   fileUploadMiddleware.single('file'),
   (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.body, req.file, req.files);
     res.send('ok');
   },
   (err: Error, req: Request, res: Response, next: NextFunction) => {

@@ -9,7 +9,6 @@ export const authMiddleware = async (
   next: NextFunction,
 ) => {
   const authHeader = req.headers.authorization;
-  console.log(req.files, req.file);
   if (!authHeader) {
     return next(new UnauthorizedException('No token was passed'));
   }
@@ -17,6 +16,7 @@ export const authMiddleware = async (
   try {
     const result = jwt.verify(providedToken, process.env.JWT_SECRET!);
     res.locals.user = result;
+    req.user = result;
     next();
   } catch (error) {
     return next(
