@@ -9,6 +9,17 @@ export class UserNotFoundException extends Error {
     this.message = 'User cannot be found';
   }
 }
+
+export class UnauthorizedException extends Error {
+  status: number;
+  constructor(message?: string) {
+    super();
+    this.name = 'UnauthorizedException';
+    this.status = statusCode.UNAUTHORIZE;
+    this.message = message || 'Invalid or expired token';
+  }
+}
+
 export class EmailAlreadyExistException extends Error {
   status: number;
   constructor() {

@@ -68,3 +68,28 @@
     display: flex;
   }
 }
+
+form {
+  padding: 10px;
+
+  .input-field {
+    input,
+    select {
+      border-radius: 5px;
+      border-color: $bg-light;
+      box-sizing: border-box;
+      height: 40px;
+      width: 100%;
+    }
+  }
+}
+
+button {
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  height: 40px;
+  padding: 5px;
+  width: 100%;
+}

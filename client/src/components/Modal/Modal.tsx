@@ -24,7 +24,7 @@ const Modal: React.FC<{ children: any; click: () => void }> = ({
           <div className="modal-header">{findByKey('header')}</div>
           <div className="modal-body">{findByKey('body')}</div>
           <div className="modal-footer">
-            <button className="modal-close" onClick={closeModal}>
+            <button className="btn-modal modal-close" onClick={closeModal}>
               CLOSE
             </button>
             {findByKey('footer')}

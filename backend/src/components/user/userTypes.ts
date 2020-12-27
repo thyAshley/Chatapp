@@ -11,3 +11,11 @@ export interface UserAttribute {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export interface UserUpdateAttribute {
+  firstName?: string;
+  lastName?: string;
+  gender?: string;
+  password?: string;
+  avatar?: string;
+}

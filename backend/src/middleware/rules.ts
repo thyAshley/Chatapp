@@ -37,3 +37,19 @@ export const LoginRules = [
     .withMessage('Please provide a valid email'),
   body('password').notEmpty().withMessage('Password should not be empty'),
 ];
+
+export const updateRules = [
+  body('firstName')
+    .trim()
+    .notEmpty()
+    .withMessage('First Name should not be empty'),
+  body('lastName')
+    .trim()
+    .notEmpty()
+    .withMessage('Last Name should not be empty'),
+  body('password')
+    .optional()
+    .isLength({ min: 5 })
+    .withMessage('Password should at least be 5 character long'),
+  body('gender').notEmpty().withMessage('Gender should not be empty'),
+];

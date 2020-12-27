@@ -1,5 +1,4 @@
 import { DataTypes, Model } from 'sequelize';
-import { DataType } from 'sequelize-typescript';
 import { sequelize } from '../../db';
 import { UserAttribute } from './userTypes';
 class User extends Model<UserAttribute> {
@@ -29,6 +28,7 @@ User.init(
     },
     email: {
       type: DataTypes.STRING,
+      unique: true,
     },
     gender: {
       type: DataTypes.STRING,

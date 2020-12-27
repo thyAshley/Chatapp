@@ -12,9 +12,15 @@ import Modal from '../Modal';
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth.user);
+
   const [showProfileOptions, setShowProfileOptions] = useState(false);
   const [showProfileModal, setShowProfileModal] = useState(false);
-  const user = useSelector((state: RootState) => state.auth.user);
+  const [firstName, setFirstName] = useState(user?.firstName);
+  const [lastName, setLastName] = useState(user?.lastName);
+  const [gender, setGender] = useState(user?.gender);
+  const [password, setPassword] = useState('');
+  const [avatar, setAvatar] = useState<File | null>(null);
 
   const onLogoutHandler = () => {
     dispatch(logout());
@@ -23,6 +29,30 @@ const Navbar = () => {
   const updateProfileHandler = () => {
     setShowProfileOptions(false);
     setShowProfileModal(true);
+  };
+
+  const setAvatarHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      setAvatar(e.target.files[0]);
+    }
+  };
+
+  const updateUserHandler = (e: React.FormEvent) => {
+    e.preventDefault();
+    const data: any = {
+      firstName,
+      lastName,
+      gender,
+      password,
+      avatar,
+    };
+    const formData = new FormData();
+
+    for (const keys in data) {
+      formData.append(keys, data[keys]);
+    }
+
+    // dispatch
   };
 
   return (
@@ -44,9 +74,55 @@ const Navbar = () => {
         )}
         {showProfileModal && (
           <Modal click={() => setShowProfileModal(false)}>
-            <Fragment key="header">Modal Header</Fragment>
-            <Fragment key="body">Modal Body</Fragment>
-            <Fragment key="footer">Modal Footer</Fragment>
+            <Fragment key="header">
+              <h3 className="m-0">Update Profile</h3>
+            </Fragment>
+            <Fragment key="body">
+              <form onSubmit={updateUserHandler}>
+                <div className="input-field mb-1">
+                  <input
+                    type="text"
+                    placeholder="First Name"
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </div>
+                <div className="input-field mb-1">
+                  <input
+                    type="text"
+                    placeholder="Last Name"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                </div>
+
+                <div className="input-field mb-1">
+                  <select
+                    value={gender}
+                    onChange={(e) => setGender(e.currentTarget.value)}
+                  >
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </div>
+                <div className="input-field mb-1">
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <div className="input-field mb-1">
+                  <input type="file" onChange={setAvatarHandler} />
+                </div>
+              </form>
+            </Fragment>
+            <Fragment key="footer">
+              <button className="btn-success" onClick={updateUserHandler}>
+                UPDATE
+              </button>
+            </Fragment>
           </Modal>
         )}
       </div>
