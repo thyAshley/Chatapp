@@ -17,14 +17,14 @@ export const updateUser = async (
         lastName: form.lastName,
         password: form.password,
         gender: form.gender,
-        avatar: avatar?.filename || '',
+        avatar: avatar?.filename || undefined,
       },
       {
         where: { id: id },
         returning: true,
       },
     );
-    return result;
+    return result[0];
   } catch (error) {
     console.log(error);
   }

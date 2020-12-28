@@ -3,7 +3,7 @@ import instance from './instance';
 
 export const authService = {
   login: async (email: string, password: string) => {
-    const response = await instance.post('/api/v1/login', {
+    const response = await instance.post('/login', {
       email,
       password,
     });
@@ -12,7 +12,7 @@ export const authService = {
   },
 
   register: async (data: UserInstance) => {
-    const response = await instance.post('/api/v1/register', data);
+    const response = await instance.post('/register', data);
     saveUserToLocalStorage(response.data);
     return response;
   },
@@ -22,16 +22,32 @@ export const authService = {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
   },
+
+  updateProfile: async (data: any) => {
+    const token = localStorage.getItem('token');
+    const response = await instance.post('/user/update', data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    saveUserToLocalStorage({ user: response.data });
+    return response;
+  },
 };
 
 const saveUserToLocalStorage = ({
   user,
   token,
 }: {
-  user: UserInstance;
-  token: string;
+  user?: UserInstance;
+  token?: string;
 }) => {
   instance.defaults.headers['Authorization'] = `Bearer ${token}`;
-  localStorage.setItem('user', JSON.stringify(user));
-  localStorage.setItem('token', token);
+  if (user?.password) delete user.password;
+  if (user) {
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+  if (token) {
+    localStorage.setItem('token', token);
+  }
 };

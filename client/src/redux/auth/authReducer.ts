@@ -7,6 +7,9 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
   LOGOUT,
+  UPDATE_REQUEST,
+  UPDATE_SUCCESS,
+  UPDATE_FAILURE,
 } from './authConstant';
 
 const localUser = localStorage.getItem('user');
@@ -19,7 +22,10 @@ const initialState: AuthInstance = {
   loading: false,
 };
 
-const authReducer = (state = initialState, action: authActionType) => {
+const authReducer = (
+  state = initialState,
+  action: authActionType,
+): AuthInstance => {
   switch (action.type) {
     case LOGIN:
       return {
@@ -52,6 +58,24 @@ const authReducer = (state = initialState, action: authActionType) => {
         isLoggedIn: true,
       };
     case REGISTER_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case UPDATE_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case UPDATE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        user: action.payload,
+      };
+    case UPDATE_FAILURE:
       return {
         ...state,
         loading: false,

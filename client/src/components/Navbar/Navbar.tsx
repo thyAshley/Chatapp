@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import './Navbar.scss';
 
 import { RootState } from '../../redux/rootReducer';
-import { logout } from '../../redux/auth/authActions';
+import { logout, update } from '../../redux/auth/authActions';
 import Modal from '../Modal';
 
 const Navbar = () => {
@@ -37,29 +37,36 @@ const Navbar = () => {
     }
   };
 
-  const updateUserHandler = (e: React.FormEvent) => {
+  const updateUserHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     const data: any = {
       firstName,
       lastName,
       gender,
-      password,
-      avatar,
     };
     const formData = new FormData();
 
+    if (avatar) formData.append('avatar', avatar);
     for (const keys in data) {
       formData.append(keys, data[keys]);
     }
-
-    // dispatch
+    if (password.length > 0) formData.append('password', password);
+    dispatch(update(formData));
+    setShowProfileModal(false);
   };
 
   return (
     <div id="navbar" className="card-shadow">
       <h2>Chat App</h2>
       <div id="profile-menu">
-        <img src={user?.avatar || defaultPortrait} alt="Avatar" />
+        <img
+          src={
+            user?.avatar
+              ? `http://localhost:5000/users/${user.id}/${user.avatar}`
+              : defaultPortrait
+          }
+          alt="Avatar"
+        />
         <p>{user?.firstName}</p>
         <FontAwesomeIcon
           icon="caret-down"
@@ -114,7 +121,11 @@ const Navbar = () => {
                   />
                 </div>
                 <div className="input-field mb-1">
-                  <input type="file" onChange={setAvatarHandler} />
+                  <input
+                    type="file"
+                    name="avatar"
+                    onChange={setAvatarHandler}
+                  />
                 </div>
               </form>
             </Fragment>

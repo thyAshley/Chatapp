@@ -35,3 +35,16 @@ export const logout = () => (dispatch: Dispatch) => {
   authService.logout();
   dispatch({ type: authConstant.LOGOUT });
 };
+
+export const update = (data: any) => async (dispatch: Dispatch) => {
+  dispatch({ type: authConstant.UPDATE_REQUEST });
+  try {
+    const response = await authService.updateProfile(data);
+    dispatch({ type: authConstant.UPDATE_SUCCESS, payload: response.data });
+  } catch (error) {
+    dispatch({
+      type: authConstant.UPDATE_FAILURE,
+      payload: error.response.data,
+    });
+  }
+};
