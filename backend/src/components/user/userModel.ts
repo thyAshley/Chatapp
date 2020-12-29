@@ -1,7 +1,8 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../../db';
+import Chat from '../chat/chatModel';
 import { UserAttribute } from './userTypes';
-class User extends Model<UserAttribute> {
+class User extends Model implements UserAttribute {
   public id?: string;
   public firstName!: string;
   public lastName!: string;
@@ -9,8 +10,7 @@ class User extends Model<UserAttribute> {
   public gender!: string;
   public password!: string;
   public avatar!: string;
-  public createdAt!: string;
-  public updatedAt!: string;
+  public chat!: Chat;
 }
 
 User.init(
@@ -19,6 +19,15 @@ User.init(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+    },
+    chat: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Chats',
+        key: 'id',
+      },
+      onDelete: 'cascade',
     },
     firstName: {
       type: DataTypes.STRING,

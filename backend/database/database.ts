@@ -1,25 +1,15 @@
-require('dotenv').config();
+import { Sequelize } from 'sequelize';
+import config from 'config';
 
-module.exports = {
-  development: {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    host: process.env.DB_HOST,
-    dialect: 'postgres',
+const dbConfig = config.get<any>('database');
+
+export const sequelize = new Sequelize(
+  dbConfig.database,
+  dbConfig.username,
+  dbConfig.password,
+  {
+    dialect: dbConfig.dialect,
+    storage: dbConfig.storage,
+    logging: dbConfig.logging,
   },
-  test: {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    host: process.env.DB_HOST,
-    dialect: 'postgres',
-  },
-  production: {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE,
-    host: process.env.DB_HOST,
-    dialect: 'postgres',
-  },
-};
+);
