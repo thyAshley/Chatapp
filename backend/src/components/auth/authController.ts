@@ -38,6 +38,7 @@ export const login = async (
       token,
     });
   } catch (error) {
+    console.log(error);
     next(new UncaughtException());
   }
 };

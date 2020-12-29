@@ -9,6 +9,10 @@ class Message extends Model implements MessageAttribute {
   type!: string;
   from!: string;
   message!: string;
+
+  static associate() {
+    this.belongsTo(Chat, { foreignKey: 'chatId' });
+  }
 }
 
 Message.init(
@@ -44,7 +48,5 @@ Message.init(
     tableName: 'Message',
   },
 );
-
-Message.belongsTo(Chat, { foreignKey: 'chatId' });
 
 export default Message;

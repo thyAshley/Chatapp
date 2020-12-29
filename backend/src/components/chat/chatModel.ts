@@ -9,6 +9,12 @@ import Message from './messageModel';
 class Chat extends Model implements ChatAttribute {
   public id?: string;
   public type!: string;
+
+  static associate() {
+    this.belongsToMany(User, { through: ChatUser, foreignKey: 'chatId' });
+    this.hasMany(ChatUser, { foreignKey: 'chatId' });
+    this.hasMany(Message, { foreignKey: 'chatId' });
+  }
 }
 
 Chat.init(
@@ -27,9 +33,5 @@ Chat.init(
     tableName: 'Chats',
   },
 );
-
-Chat.belongsToMany(User, { through: ChatUser, foreignKey: 'chatId' });
-Chat.hasMany(ChatUser, { foreignKey: 'chatId' });
-Chat.hasMany(Message, { foreignKey: 'chatId' });
 
 export default Chat;

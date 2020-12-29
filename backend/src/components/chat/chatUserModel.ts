@@ -8,6 +8,11 @@ class ChatUser extends Model implements ChatUserAttribute {
   public id?: string;
   chatId!: string;
   userId!: string;
+
+  static associate() {
+    this.belongsTo(User, { foreignKey: 'userId' });
+    this.belongsTo(Chat, { foreignKey: 'chatId' });
+  }
 }
 
 ChatUser.init(
@@ -41,8 +46,5 @@ ChatUser.init(
     tableName: 'ChatUsers',
   },
 );
-
-ChatUser.belongsTo(Chat, { foreignKey: 'chatId' });
-ChatUser.belongsTo(User, { foreignKey: 'userId' });
 
 export default ChatUser;

@@ -3,6 +3,7 @@ import { sequelize } from '../../db';
 import Chat from '../chat/chatModel';
 import ChatUser from '../chat/chatUserModel';
 import { UserAttribute } from './userTypes';
+
 class User extends Model implements UserAttribute {
   public id?: string;
   public firstName!: string;
@@ -63,6 +64,6 @@ User.init(
   },
 );
 
-User.hasMany(ChatUser);
+User.hasMany(ChatUser, { foreignKey: 'userId' });
 
 export default User;

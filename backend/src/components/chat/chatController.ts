@@ -10,28 +10,33 @@ export const index = async (
   res: Response,
   next: NextFunction,
 ) => {
-  const user = await User.findOne({
-    where: { id: req.user.id },
-    include: [
-      {
-        model: Chat,
-        include: [
-          {
-            model: User,
-            where: {
-              [Op.not]: {
-                id: req.user.id,
+  try {
+    const user = await User.findOne({
+      where: { id: req.user.id },
+      include: [
+        {
+          model: Chat,
+          include: [
+            {
+              model: User,
+              where: {
+                [Op.not]: {
+                  id: req.user.id,
+                },
               },
             },
-          },
-          {
-            model: Message,
-            limit: 20,
-            order: [['id', 'desc']],
-          },
-        ],
-      },
-    ],
-  });
-  return res.send(user?.chat);
+            {
+              model: Message,
+              limit: 20,
+              order: [['id', 'desc']],
+            },
+          ],
+        },
+      ],
+    });
+  } catch (error) {
+    console.log(error);
+  }
+
+  return res.send('here');
 };

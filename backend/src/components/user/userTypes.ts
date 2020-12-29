@@ -6,7 +6,7 @@ export interface UserAttribute {
   firstName: string;
   lastName: string;
   email: string;
-  chat: Chat;
+  chat?: Chat;
   gender: string;
   password: string;
   avatar?: string;
