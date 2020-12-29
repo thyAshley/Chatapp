@@ -41,7 +41,7 @@ Message.init(
   },
   {
     sequelize,
-    tableName: 'ChatUsers',
+    tableName: 'Message',
   },
 );
 

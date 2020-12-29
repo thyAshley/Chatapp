@@ -1,6 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../../db';
 import Chat from '../chat/chatModel';
+import ChatUser from '../chat/chatUserModel';
 import { UserAttribute } from './userTypes';
 class User extends Model implements UserAttribute {
   public id?: string;
@@ -61,5 +62,7 @@ User.init(
     tableName: 'Users',
   },
 );
+
+User.hasMany(ChatUser);
 
 export default User;

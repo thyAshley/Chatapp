@@ -4,7 +4,11 @@ import User from '../user/userModel';
 import Chat from './chatModel';
 import { ChatUserAttribute } from './chatTypes';
 
-class ChatUser extends Model<ChatUserAttribute> {}
+class ChatUser extends Model implements ChatUserAttribute {
+  public id?: string;
+  chatId!: string;
+  userId!: string;
+}
 
 ChatUser.init(
   {

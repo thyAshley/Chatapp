@@ -28,7 +28,7 @@ Chat.init(
   },
 );
 
-Chat.belongsToMany(User, { through: 'id' });
+Chat.belongsToMany(User, { through: ChatUser, foreignKey: 'chatId' });
 Chat.hasMany(ChatUser, { foreignKey: 'chatId' });
 Chat.hasMany(Message, { foreignKey: 'chatId' });
 

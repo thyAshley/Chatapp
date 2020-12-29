@@ -7,6 +7,7 @@ dotenv.config();
 
 import AuthRouter from './components/auth/authRouter';
 import UserRouter from './components/user/userRouter';
+import ChatRouter from './components/chat/chatRouter';
 import { errorhandlingMiddleware } from './middleware/ErrorhandlingMiddleware';
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1/', AuthRouter);
 app.use('/api/v1/user', UserRouter);
+app.use('/api/v1/chats', ChatRouter);
 
 app.use(errorhandlingMiddleware);
 
