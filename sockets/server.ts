@@ -3,6 +3,11 @@ import http from "http";
 import express from "express";
 import { Socket } from "socket.io";
 
+import {
+  generateMessage,
+  generateLocationMessage,
+} from "./src/services/MessageServices";
+
 const publicPath = path.join(__dirname, "public");
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -12,25 +17,23 @@ const io = require("socket.io")(server);
 app.use(express.static(publicPath));
 
 io.on("connection", (socket: Socket) => {
-  socket.emit("newMessage", {
-    from: "Admin",
-    text: "Welcome to the chat App",
-    createdAt: new Date().getTime(),
-  });
+  socket.emit("newMessage", generateMessage("Admin", "Welcome to the app"));
 
-  socket.broadcast.emit("newMessage", {
-    from: "Admin",
-    text: "A new user has join the chat",
-    createdAt: new Date().getTime(),
-  });
+  socket.broadcast.emit(
+    "newMessage",
+    generateMessage("Admin", "A new user has join the chat")
+  );
 
-  socket.on("createMessage", (message: { from: string; text: string }) => {
-    console.log(message);
-    socket.emit("newMessage", {
-      from: message.from,
-      text: message.text,
-      createdAt: new Date().getTime(),
-    });
+  socket.on(
+    "createMessage",
+    (message: { from: string; text: string }, callback) => {
+      io.emit("newMessage", generateMessage(message.from, message.text));
+      callback("This is the server");
+    }
+  );
+
+  socket.on("createLocationMessage", (coords) => {
+    io.emit("newLocationMessage", generateLocationMessage("Admin", coords));
   });
 
   socket.on("disconnect", () => {
