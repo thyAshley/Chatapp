@@ -20,7 +20,13 @@ const io = new Server(server, {
 
 io.on("connection", (socket: Socket) => {
   socket.on("disconnect", () => {
-    UserService.removeUser(socket.id);
+    const user = UserService.removeUser(socket.id);
+    if (user) {
+      io.to(user.room).emit("message", {
+        user: "Admin",
+        text: `${user.name} has left`,
+      });
+    }
   });
   socket.on("join", (data: { name: string; room: string }, callback) => {
     const { error, user } = UserService.addUser({

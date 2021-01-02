@@ -31,7 +31,7 @@ export const addUser = ({
 export const removeUser = (id: string) => {
   const index = users.findIndex((user) => user.id === id);
   if (index >= 0) {
-    return users.splice(index, 1);
+    return users.splice(index, 1)[0];
   }
 };
 
